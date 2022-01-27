@@ -2,10 +2,11 @@ package model;
 
 public class Rover {
 
+    private String name;
+
     private static Direction direction;
     private Position position;
     private Plateau plateau;
-    private String name;
 
     public Rover(String name) {
         this.name = name;
@@ -36,7 +37,7 @@ public class Rover {
         }
     }
 
-    public void move(){
+    public void moveForward(){
         Position newPosition= position.move(direction);
         position = newPosition;
     }
@@ -54,7 +55,7 @@ public class Rover {
         switch (instruction){
             case LEFT: turnLeft(); break;
             case RIGHT: turnRight(); break;
-            case MOVE: move(); break;
+            case MOVE: moveForward(); break;
 
             default:throw new RuntimeException("Invalid Instruction!");
         }
