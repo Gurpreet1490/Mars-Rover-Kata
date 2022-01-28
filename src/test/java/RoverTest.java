@@ -1,10 +1,8 @@
-import model.Instruction;
-import model.Plateau;
-import model.Rover;
-import model.RoverInstruction;
+import model.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RoverTest {
 
@@ -35,6 +33,13 @@ public class RoverTest {
         assertEquals("5 1 E", report);
     }
 
+    @Test
+    public void roverNotDroppedReport(){
+        Rover rover1 = new Rover("RoverX1");
+        String report = rover1.reportPosition();
+
+        assertEquals("Rover not landed!", report);
+    }
 
 
 }
