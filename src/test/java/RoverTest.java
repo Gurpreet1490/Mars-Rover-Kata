@@ -52,4 +52,21 @@ public class RoverTest {
 
 
 
+    @Test
+    public void movingRoverOverAnotherRoverShouldThrowException(){
+        Rover rover1 = new Rover("RoverX1");
+        Rover rover2 = new Rover("RoverX2");
+
+        rover1.landRover(plateau, "3 5 E");
+
+        try {
+            rover2.landRover(plateau, "3 5 N");
+            assertTrue("Should have thrown before!", false);
+        }
+        catch (RuntimeException ex){
+
+        }
+    }
+
+
 }
