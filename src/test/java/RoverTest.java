@@ -41,5 +41,15 @@ public class RoverTest {
         assertEquals("Rover not landed!", report);
     }
 
+    //full status with name
+    @Test
+    public void roverNotDroppedWithName(){
+        Rover rover1 = new Rover("RoverX1");
+        String report = rover1.reportStatus();
+
+        assertEquals("RoverX1 Rover not landed!", report);
+    }
+
+
 
 }
