@@ -1,5 +1,5 @@
 package model;
 
-public enum Instruction {
+public enum InstructionType {
     LEFT,RIGHT,MOVE
 }
