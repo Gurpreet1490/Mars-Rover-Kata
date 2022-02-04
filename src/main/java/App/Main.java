@@ -39,9 +39,9 @@ public class Main {
 
   private static Plateau createPlateau(String dimensions){
       String[] axis = dimensions.split(" ");
-      int dimX = Integer.parseInt(axis[0]);
-      int dimY = Integer.parseInt(axis[1]);
-      return new Plateau(dimX, dimY);
+      int maxX = Integer.parseInt(axis[0]);
+      int maxY = Integer.parseInt(axis[1]);
+      return new Plateau(maxX, maxY);
   }
 
   private static Rover landRover(String id, Plateau plateau, String landedInfo, String direction){
