@@ -3,7 +3,6 @@ package model;
 public class Rover {
 
     private String name;
-
     private static Direction direction;
     private Position position;
     private Plateau plateau;
@@ -12,9 +11,6 @@ public class Rover {
         this.name = name;
     }
 
-    public boolean hasPosition(Position position) {
-        return true;
-    }
 
     public void turnLeft() {
         switch (direction) {
@@ -22,57 +18,46 @@ public class Rover {
             case NORTH -> direction = direction.WEST;
             case WEST -> direction = direction.SOUTH;
             case SOUTH -> direction = direction.EAST;
-            default -> throw new RuntimeException("Rover shouldn't expected to be here!");
+            default -> throw new RuntimeException("Invalid direction value!");
         }
-
     }
 
     public void turnRight(){
         switch (direction) {
-            case EAST -> direction = direction.NORTH;
-            case NORTH -> direction = direction.WEST;
-            case WEST -> direction = direction.SOUTH;
-            case SOUTH -> direction = direction.EAST;
-            default -> throw new RuntimeException("Rover shouldn't expected to be here!");
+            case EAST -> direction = direction.SOUTH;
+            case NORTH -> direction = direction.EAST;
+            case WEST -> direction = direction.NORTH;
+            case SOUTH -> direction = direction.WEST;
+            default -> throw new RuntimeException("Invalid direction value!");
         }
     }
 
-    public void moveForward(){
-        Position newPosition= position.move(direction);
+    public void moveForward() {
+        Position newPosition = position.move(direction);
+        if (!newPosition.onPlateau(plateau)) {
+            throw new PositionNotFoundException();
+        }
         position = newPosition;
     }
 
-    public void command(Instruction[] instructions) {
-        for (Instruction instruction : instructions) {
-            processCommand(instruction);
-        }
-    }
-
-    public void processCommand(Instruction instruction){
-        if (position ==null || direction == null){
-            throw new NotLandedException();
-        }
-        switch (instruction){
-            case LEFT: turnLeft(); break;
-            case RIGHT: turnRight(); break;
-            case MOVE: moveForward(); break;
-
-            default:throw new RuntimeException("Invalid Instruction!");
-        }
+    public boolean hasPosition(Position position) {
+        return this.position.isEqual(position);
     }
 
     public void landRover(Plateau plateau, String args) {
         String[] axis = args.split(" ");
         int x = Integer.parseInt(axis[0]);
         int y = Integer.parseInt(axis[1]);
-        Direction direction = headingTo(axis[2].toCharArray()[0]);
-        landRover(plateau, new Position(x, y), direction);
+        Direction direction = approachingTo(axis[2].toCharArray()[0]);
+        landRoverPlateau(plateau, new Position(x, y), direction);
     }
 
-    public void landRover(Plateau plateau, Position position, Direction direction){
+    public void landRoverPlateau(Plateau plateau, Position position, Direction direction){
+
         if(!position.onPlateau(plateau)){
-            throw new PositionNotFoundException(plateau, position);
+            throw new PositionNotFoundException();
         }
+
         if(plateau.positionTaken(position)){
             throw new RuntimeException("Position already taken!");
         }
@@ -84,12 +69,31 @@ public class Rover {
         plateau.addRover(this);
     }
 
-    public void landRover(Plateau plateau, int posX, int posY, char direction){
-        landRover(plateau, new Position(posX, posY), headingTo(direction));
-
+    public void landRoverPosition(Plateau plateau, int posX, int posY, char direction)
+    {
+        landRoverPlateau(plateau, new Position(posX, posY), approachingTo(direction));
     }
 
-    private static Direction headingTo(char direction){
+
+    public void command(InstructionType[] instructions) {
+        for (InstructionType i : instructions) {
+            processCommand(i);
+        }
+    }
+
+    public void processCommand(InstructionType instruction){
+        if (position == null || direction == null){
+            throw new NotLandedException();
+        }
+        switch (instruction){
+            case LEFT: turnLeft(); break;
+            case RIGHT: turnRight(); break;
+            case MOVE: moveForward(); break;
+            default:throw new RuntimeException("Invalid Instruction!");
+        }
+    }
+
+    public static Direction approachingTo(char direction){
         switch (direction){
             case 'N' : return Direction.NORTH;
             case 'S' : return Direction.SOUTH;
@@ -99,7 +103,7 @@ public class Rover {
         }
     }
 
-    private static char headingFrom(Direction direction){
+    private static char approachingFrom(Direction direction){
         switch (direction){
             case NORTH: return 'N';
             case SOUTH: return 'S';
@@ -109,18 +113,18 @@ public class Rover {
         }
     }
 
-    public String reportStatus() {
+    public String roverStatus() {
         StringBuilder strB = new StringBuilder(name);
         strB.append(" ");
-        strB.append(reportPosition());
+        strB.append(roverPosition());
         return strB.toString();
     }
 
-    public String reportPosition() {
+    public String roverPosition() {
         if (position == null || direction == null){
             return "Rover not landed!";
         }
-        return position.toString() + " " + headingFrom(direction);
+        return position.toString() + " " + approachingFrom(direction);
     }
 }
 
