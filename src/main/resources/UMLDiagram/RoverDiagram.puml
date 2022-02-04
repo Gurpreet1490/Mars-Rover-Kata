@@ -48,7 +48,7 @@ class Rover{
     +landRoverPlateau(): void
     +landRoverPosition(): void
     +command(): void
-    +processCommand: void
+    +processCommand(): void
     +approachingTo(): static
     +approachingFrom(): static
     +roverStatus(): String
