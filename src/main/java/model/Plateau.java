@@ -1,19 +1,17 @@
 package model;
-
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Plateau {
 
-    int dimX;
-    int dimY;
+   public int MaxX;
+   public int MaxY;
 
     private List<Rover> rovers = new ArrayList<Rover>();
 
-    public Plateau(int dimX, int dimY) {
-        this.dimX = dimX;
-        this.dimY = dimY;
+    public Plateau(int maxX, int maxY) {
+        this.MaxX = maxX;
+        this.MaxY = maxY;
     }
 
     public void addRover(Rover rover){

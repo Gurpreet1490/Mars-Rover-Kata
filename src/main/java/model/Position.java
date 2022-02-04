@@ -10,12 +10,9 @@ public class Position {
         this.y = y;
     }
 
-    public Position(Position other){
-        this.x = other.x;
-        this.y = other.y;
-    }
 
     public boolean isEqual(Position other){
+
         return x == other.x && y ==other.y;
     }
 
@@ -25,10 +22,10 @@ public class Position {
     }
 
     public boolean onPlateau(Plateau p){
-        if(x < 0 || x>p.dimX){
+        if(x < 0 || x > p.MaxX){
             return false;
         }
-        if(y < 0 || y>p.dimY){
+        if(y < 0 || y > p.MaxY){
             return false;
         }
         return true;
@@ -36,10 +33,10 @@ public class Position {
 
     public Position move(Direction direction){
         switch (direction) {
-            case EAST : return new Position(x+1, y);
-            case NORTH: return new Position(x, y+1);
-            case SOUTH: return new Position(x, y-1);
-            case WEST:  return new Position(x-1, y);
+            case EAST : return new Position(x + 1, y);
+            case NORTH: return new Position(x, y + 1);
+            case SOUTH: return new Position(x, y - 1);
+            case WEST:  return new Position(x - 1, y);
             default:throw new RuntimeException("Invalid direction, please add valid values");
         }
     }
