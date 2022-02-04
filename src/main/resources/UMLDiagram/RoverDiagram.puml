@@ -1,0 +1,64 @@
+@startuml
+
+enum Direction {
+    NORTH
+    SOUTH
+    WEST
+    EAST
+}
+
+enum InstructionType {
+    LEFT
+    RIGHT
+    MOVE
+}
+
+class Plateau {
+    + Int MaxX
+    + Int MaxY
+    -<List>rovers
+
+    -positionTaken(): boolean
+    +addRover() : void
+}
+
+class Position {
+    + Int x
+    + Int y
+
+    +isEqual(): boolean
+    +toString(): String
+    +onPlateau(): boolean
+    +move() : Position
+}
+
+class Instructions{
+    -String instructions
+    +getInstruction(): Instruction
+
+}
+
+class Rover{
+    -String name
+    +turnLeft() : void
+    +turnRight() : void
+    +moveForward() : void
+    +hasPosition() : boolean
+    +landRover(): void
+    +landRoverPlateau(): void
+    +landRoverPosition(): void
+    +command(): void
+    +processCommand: void
+    +approachingTo(): static
+    +approachingFrom(): static
+    +roverStatus(): String
+    +roverPosition() : String
+}
+
+Rover--Instructions
+Rover--Position
+Rover--Plateau
+
+
+
+@enduml
