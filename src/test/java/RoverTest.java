@@ -13,7 +13,7 @@ public class RoverTest {
 
         rover1.landRoverPlateau(plateau, new Position(10, 10), Direction.NORTH);
         rover1.command(convertToArray("LMLMLMLMM"));
-        String report = rover1.reportPosition();
+        String report = rover1.roverPosition();
 
         assertEquals("10 11 N", report);
     }
@@ -25,7 +25,7 @@ public class RoverTest {
         rover1.landRoverPosition(plateau, 3, 3, 'E');
         rover1.command(convertToArray("MMRMMMRRM"));
 
-        String report = rover1.reportPosition();
+        String report = rover1.roverPosition();
 
         assertEquals("5 1 N", report);
     }
@@ -33,7 +33,7 @@ public class RoverTest {
     @Test
     public void roverNotDroppedReport(){
         Rover rover1 = new Rover("RoverX1");
-        String report = rover1.reportPosition();
+        String report = rover1.roverPosition();
 
         assertEquals("Rover not landed!", report);
     }
@@ -84,12 +84,12 @@ public class RoverTest {
     public void landRoverOnEmptyLocationShouldSucceed(){
         Rover rover1 = new Rover("RoverX1");
         rover1.landRover(plateau, "3 5 E");
-        String report = rover1.reportPosition();
+        String report = rover1.roverPosition();
 
         assertEquals("3 5 E", report);
     }
 
-    private static Instruction[] convertToArray(String instructions) {
+    private static InstructionType[] convertToArray(String instructions) {
         return new Instructions(instructions).getInstruction();
     }
 
