@@ -41,7 +41,7 @@ public class RoverTest {
     @Test
     public void roverNotDroppedWithName(){
         Rover rover1 = new Rover("RoverX1");
-        String report = rover1.reportStatus();
+        String report = rover1.roverStatus();
 
         assertEquals("RoverX1 Rover not landed!", report);
     }
