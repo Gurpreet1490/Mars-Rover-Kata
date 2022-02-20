@@ -6,6 +6,7 @@ public class Rover {
     private static Direction direction;
     private Position position;
     private Plateau plateau;
+    private MissionControl missionControl;
 
     public Rover(String name) {
         this.name = name;
@@ -34,7 +35,7 @@ public class Rover {
 
     public void moveForward() {
         Position newPosition = position.move(direction);
-        if (!newPosition.onPlateau(plateau)) {
+        if (!newPosition.onPlateau(missionControl)) {
             throw new PositionNotFoundException();
         }
         position = newPosition;
@@ -44,34 +45,35 @@ public class Rover {
         return this.position.isEqual(position);
     }
 
-    public void landRover(Plateau plateau, String args) {
+    public void landRover(MissionControl missionControl, String args) {
         String[] axis = args.split(" ");
         int x = Integer.parseInt(axis[0]);
         int y = Integer.parseInt(axis[1]);
         Direction direction = approachingTo(axis[2].toCharArray()[0]);
-        landRoverPlateau(plateau, new Position(x, y), direction);
+        landRoverPlateau(missionControl, new Position(x, y), direction);
     }
 
-    public void landRoverPlateau(Plateau plateau, Position position, Direction direction){
+    public void landRoverPlateau(MissionControl missionControl, Position position, Direction direction){
 
-        if(!position.onPlateau(plateau)){
+        if(!position.onPlateau(missionControl)){
             throw new PositionNotFoundException();
         }
 
-        if(plateau.positionTaken(position)){
+        if(missionControl.positionTaken(position)){
             throw new RuntimeException("Position already taken!");
         }
 
-        this.plateau = plateau;
+        this.missionControl = missionControl;
+       // this.plateau = plateau;
         this.position = position;
         this.direction = direction;
 
-        plateau.addRover(this);
+        missionControl.addRover(this);
     }
 
-    public void landRoverPosition(Plateau plateau, int posX, int posY, char direction)
+    public void landRoverPosition(MissionControl missionControl, int posX, int posY, char direction)
     {
-        landRoverPlateau(plateau, new Position(posX, posY), approachingTo(direction));
+        landRoverPlateau(missionControl, new Position(posX, posY), approachingTo(direction));
     }
 
 

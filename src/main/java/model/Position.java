@@ -12,7 +12,6 @@ public class Position {
 
 
     public boolean isEqual(Position other){
-
         return x == other.x && y ==other.y;
     }
 
@@ -21,11 +20,12 @@ public class Position {
         return x + " " + y;
     }
 
-    public boolean onPlateau(Plateau p){
-        if(x < 0 || x > p.MaxX){
+
+    public boolean onPlateau(MissionControl missionControl){
+        if(x < 0 || x > missionControl.MaxX){
             return false;
         }
-        if(y < 0 || y > p.MaxY){
+        if(y < 0 || y > missionControl.MaxY){
             return false;
         }
         return true;

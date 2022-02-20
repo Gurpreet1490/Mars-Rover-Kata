@@ -16,10 +16,7 @@ enum InstructionType {
 class Plateau {
     + Int MaxX
     + Int MaxY
-    -<List>rovers
 
-    -positionTaken(): boolean
-    +addRover() : void
 }
 
 class Position {
@@ -55,9 +52,20 @@ class Rover{
     +roverPosition() : String
 }
 
+class MissionControl{
+     + Int MaxX
+     + Int MaxY
+     -<List>rovers
+
+    -positionTaken(): boolean
+    +addRover() : void
+
+}
+
 Rover--Instructions
 Rover--Position
 Rover--Plateau
+Rover--MissionControl
 
 
 

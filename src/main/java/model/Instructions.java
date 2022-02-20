@@ -23,7 +23,7 @@ public class Instructions {
                         result.add(InstructionType.MOVE);
                         break;
                     default:
-                        throw new unknownInstructionException(c);
+                        throw new UnknownInstructionException(c);
                 }
             }
         return result.toArray(new InstructionType[result.size()]);
