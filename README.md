@@ -1,7 +1,8 @@
 # Mars-Rover-Kata : 
 
 Technology: Java
-Used TDD approach to solve the problem.
+
+Used TDD approach to solve some of the problem in Mars Kata.
 
 Mars Rover Kata, a program to move rovers around the surface of Mars!
 Surface of Mars is represented by a Plateau. The Plateau is divided into a grid. A Rover’s position is represented by x and y co-ordinates and the letters N, S, W, E to represent North,
