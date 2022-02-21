@@ -2,11 +2,15 @@ import model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
+
 
 public class RoverTest {
 
     private MissionControl missionControl = null;
+    private InstructionType instructionType;
 
     @Before
     public void setUp() {
@@ -99,6 +103,13 @@ public class RoverTest {
 
         assertEquals("3 5 E", report);
     }
+
+    @Test (expected = NotLandedException.class)
+    public void roverNotlanded(){
+        Rover rover1 = new Rover("RoverX1");
+        rover1.processCommand(null);
+    }
+
 
     private static InstructionType[] convertToArray(String instructions) {
         return new Instructions(instructions).getInstruction();
