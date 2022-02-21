@@ -2,7 +2,6 @@ import model.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -105,9 +104,27 @@ public class RoverTest {
     }
 
     @Test (expected = NotLandedException.class)
-    public void roverNotlanded(){
+    public void roverNotLanded(){
         Rover rover1 = new Rover("RoverX1");
         rover1.processCommand(null);
+    }
+
+    @Test (expected = NotLandedException.class)
+    public void roverNotLandedForRover2(){
+        Rover rover2 = new Rover("RoverX2");
+        rover2.processCommand(null);
+    }
+
+    @Test  (expected = UnknownInstructionException.class)
+    public void unknownInstructionRover1(){
+        Rover rover1 = new Rover("RoverX1");
+        rover1.command(convertToArray("S"));
+    }
+
+    @Test  (expected = UnknownInstructionException.class)
+    public void unknownInstructionRover2(){
+        Rover rover2 = new Rover("RoverX2");
+        rover2.command(convertToArray("G"));
     }
 
 
