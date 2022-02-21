@@ -64,7 +64,6 @@ public class Rover {
         }
 
         this.missionControl = missionControl;
-       // this.plateau = plateau;
         this.position = position;
         this.direction = direction;
 
